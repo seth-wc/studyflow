@@ -2,6 +2,7 @@ import { useMemo, useState, type FormEvent } from "react";
 import { useStore } from "../lib/store";
 import { useAuth } from "../lib/useAuth";
 import { useForumPosts } from "../lib/useForumPosts";
+import { usePushNotifications } from "../lib/usePushNotifications";
 
 type SortMode = "date" | "location" | "username";
 
@@ -19,6 +20,7 @@ export default function ForumPage() {
   const { data, setUsername } = useStore();
   const { user } = useAuth();
   const { posts, loading, error, addPost, deletePost } = useForumPosts();
+  const push = usePushNotifications(user?.uid);
 
   const username = data.profile.username;
   const [nameDraft, setNameDraft] = useState(username);
@@ -87,6 +89,26 @@ export default function ForumPage() {
         etc.), set sharing to "Anyone with the link," and paste the link below. Everyone signed in
         can see what's posted here; your ratings and other data stay private as always.
       </p>
+
+      {push.supported && (
+        <div className="card" style={{ marginBottom: 16, display: "flex", alignItems: "center", gap: 12, justifyContent: "space-between" }}>
+          <div>
+            <strong style={{ display: "block", fontSize: 14 }}>Phone notifications</strong>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+              {push.subscribed ? "You'll get notified when someone posts." : "Get notified on this device when someone posts."}
+            </span>
+            {push.error && <p style={{ color: "var(--danger)", fontSize: 12, margin: "4px 0 0" }}>{push.error}</p>}
+          </div>
+          <button
+            type="button"
+            className="btn"
+            disabled={push.busy}
+            onClick={() => (push.subscribed ? push.unsubscribe() : push.subscribe())}
+          >
+            {push.busy ? "Working…" : push.subscribed ? "Turn off" : "Turn on"}
+          </button>
+        </div>
+      )}
 
       <form className="form-grid card" onSubmit={handleSaveName} style={{ marginBottom: 16 }}>
         <div className="form-row">

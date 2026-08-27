@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getMessaging, isSupported as isMessagingSupported, type Messaging } from "firebase/messaging";
 
 // These values are NOT secrets — Firebase's client config is meant to be
 // public (it just identifies which project to talk to). The real privacy
@@ -19,6 +20,14 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Push notifications aren't supported everywhere (e.g. some browsers,
+// non-HTTPS contexts) -- isSupported() checks that before we ever try to
+// call getMessaging(), which throws in unsupported environments. Resolves
+// to null there instead of crashing the whole app on load.
+export const messagingPromise: Promise<Messaging | null> = isMessagingSupported()
+  .then((supported) => (supported ? getMessaging(app) : null))
+  .catch(() => null);
 
 // Opt-in only — set VITE_USE_FIREBASE_EMULATOR=true to point at local
 // emulators instead of the real project. Off by default so normal local
