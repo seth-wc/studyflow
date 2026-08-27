@@ -67,11 +67,24 @@ export interface StudySession {
   durationMinutes: number;
 }
 
+/** A viewer's rating/skip/note for one Off the Clock catalog item (movie,
+ * album, or TV pick), keyed by that item's catalog id. */
+export interface OffTheClockRatingEntry {
+  rating: number; // 0-5, in 0.5 steps; 0 = not yet rated
+  skipped: boolean;
+  note: string;
+}
+
+export interface OffTheClockData {
+  ratings: Record<string, OffTheClockRatingEntry>;
+}
+
 export interface AppData {
   projects: Project[];
   tasks: Task[];
   notes: Note[];
   studySessions: StudySession[];
+  offTheClock: OffTheClockData;
 }
 
 export const emptyAppData: AppData = {
@@ -79,4 +92,5 @@ export const emptyAppData: AppData = {
   tasks: [],
   notes: [],
   studySessions: [],
+  offTheClock: { ratings: {} },
 };

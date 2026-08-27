@@ -1,10 +1,20 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
-import type { AppData, Project, Task, Note, StudySession, ID } from "../types";
+import type { AppData, Project, Task, Note, StudySession, ID, OffTheClockRatingEntry } from "../types";
 import { emptyAppData } from "../types";
 import { PROJECT_COLORS } from "./colors";
 import { nextDueDate } from "./recurrence";
 import { db } from "./firebase";
+import { OTC_SEED_RATINGS } from "./offTheClock/seedRatings";
+
+// One-time bootstrap: the first time a user's data has no Off the Clock
+// ratings yet, seed it from the ratings.json snapshot that already existed
+// before this feature was added, so existing history shows up immediately
+// instead of starting blank.
+function withOtcSeed(data: AppData): AppData {
+  if (Object.keys(data.offTheClock.ratings).length > 0) return data;
+  return { ...data, offTheClock: { ratings: OTC_SEED_RATINGS } };
+}
 
 // This is the single place the rest of the app reads/writes data through.
 // It syncs to Firestore, one document per signed-in user at users/{uid}.
@@ -53,6 +63,7 @@ interface StoreContextValue {
   updateNote: (id: ID, patch: Partial<Omit<Note, "id" | "createdAt">>) => void;
   deleteNote: (id: ID) => void;
   addStudySession: (session: Omit<StudySession, "id">) => StudySession;
+  updateOtcRating: (id: string, patch: Partial<OffTheClockRatingEntry>) => void;
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
@@ -70,7 +81,14 @@ export function StoreProvider({ uid, children }: { uid: string; children: ReactN
       (snap) => {
         setSyncError(null);
         if (snap.exists()) {
-          setDataState({ ...emptyAppData, ...(snap.data() as Partial<AppData>) });
+          const merged = { ...emptyAppData, ...(snap.data() as Partial<AppData>) };
+          // Applied locally only, deliberately not written back here: a
+          // parallel setDoc based on this snapshot could race a setData()
+          // call from a user edit that happens moments later (e.g. rating
+          // something right after opening the page) and silently overwrite
+          // it with this older, seed-only version. The seed persists for
+          // real the moment any mutator runs, same as everything else.
+          setDataState(withOtcSeed(merged));
         } else {
           // Brand new account — create their document with placeholder data.
           const seeded = seedData();
@@ -210,6 +228,17 @@ export function StoreProvider({ uid, children }: { uid: string; children: ReactN
       const newSession: StudySession = { ...session, id: newId() };
       setData((d) => ({ ...d, studySessions: [...d.studySessions, newSession] }));
       return newSession;
+    },
+    updateOtcRating: (id, patch) => {
+      setData((d) => {
+        const existing = d.offTheClock.ratings[id] ?? { rating: 0, skipped: false, note: "" };
+        return {
+          ...d,
+          offTheClock: {
+            ratings: { ...d.offTheClock.ratings, [id]: { ...existing, ...patch } },
+          },
+        };
+      });
     },
   };
 

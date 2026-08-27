@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+
 :root {
   --bg: #f7f7fb;
   --surface: #ffffff;
@@ -656,4 +658,322 @@ button {
 .calendar-entry-time {
   color: var(--text-muted);
   flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Off the Clock — a separate top-level mode (entertainment/news digest,
+   catalog + ratings, logbook) that shares every component StudyFlow
+   already has, just retinted to its own wine/burgundy accent so the two
+   sides of the app feel distinct at a glance.
+   --------------------------------------------------------------------- */
+
+.otc-shell {
+  --accent: #7a3e52;
+  --accent-2: #c97b93;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .otc-shell {
+    --accent: #d592a6;
+    --accent-2: #e8aabb;
+  }
+}
+
+:root[data-theme="dark"] .otc-shell {
+  --accent: #d592a6;
+  --accent-2: #e8aabb;
+}
+
+.app-nav-brand-otc,
+.app-title-otc {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.mode-switch {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 4px;
+}
+
+.mode-switch-item {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mode-switch-item-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.otc-intro {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: -4px 0 0;
+}
+
+.otc-week-block {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 3px double var(--border);
+}
+
+.otc-week-block:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.otc-week-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.otc-week-label {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.otc-week-dates {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.otc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otc-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.otc-card-type {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.otc-card-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 2px 0 0;
+  line-height: 1.3;
+}
+
+.otc-card-body {
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.otc-card-link {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  width: fit-content;
+}
+
+.otc-card-link:hover {
+  text-decoration: underline;
+}
+
+.otc-headline-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.otc-headline-link:hover {
+  text-decoration: underline;
+}
+
+.otc-chip {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.otc-chip-rated {
+  background: rgba(122, 62, 82, 0.12);
+  color: var(--accent);
+}
+
+.otc-chip-skipped {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+}
+
+.otc-rate-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.otc-text-btn {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 4px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.otc-text-btn:hover {
+  color: var(--text);
+}
+
+.otc-text-btn-active {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.otc-note {
+  font-size: 12.5px;
+  color: var(--text);
+  background: none;
+  border: none;
+  border-bottom: 1px dashed transparent;
+  min-width: 90px;
+  flex: 1;
+  font-family: inherit;
+  padding: 2px 0;
+}
+
+.otc-note:hover,
+.otc-note:focus {
+  border-bottom-color: var(--border);
+  outline: none;
+}
+
+/* Star rating widget */
+.otc-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.otc-stars-disabled {
+  opacity: 0.45;
+}
+
+.otc-star {
+  position: relative;
+  display: inline-block;
+}
+
+.otc-star-glyph {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.otc-star-bg {
+  color: var(--border);
+}
+
+.otc-star-fg {
+  overflow: hidden;
+  color: var(--accent);
+  transition: width 0.15s ease;
+}
+
+.otc-star-fg-inner {
+  display: block;
+}
+
+.otc-star-hit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.otc-star-hit-half {
+  left: 0;
+}
+
+.otc-star-hit-full {
+  right: 0;
+}
+
+/* Logbook */
+.otc-log-row {
+  display: flex;
+}
+
+.otc-log-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.otc-log-creator {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.otc-log-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.otc-log-rating-num {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.otc-log-note {
+  font-size: 12px;
+  font-style: italic;
+  margin: 8px 0 0;
+  line-height: 1.5;
 }
