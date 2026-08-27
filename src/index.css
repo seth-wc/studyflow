@@ -741,9 +741,21 @@ button {
 
 .otc-week-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
   margin-bottom: 4px;
+}
+
+.otc-week-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
 }
 
 .otc-week-label {
@@ -758,6 +770,40 @@ button {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+.otc-chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.otc-chevron-open {
+  transform: rotate(90deg);
+}
+
+.otc-category-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.otc-category-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.otc-category-toggle-label h2 {
+  margin: 0;
 }
 
 .otc-card {

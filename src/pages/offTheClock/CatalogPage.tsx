@@ -97,8 +97,46 @@ function CatalogCard({ item }: { item: OtcCatalogItem }) {
   );
 }
 
+/** Small caret that rotates open/closed — shared by the week and category
+ * dropdown toggles below. */
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <span className={"otc-chevron" + (open ? " otc-chevron-open" : "")} aria-hidden="true">
+      ›
+    </span>
+  );
+}
+
 export default function CatalogPage() {
   const { data } = useStore();
+
+  // Weeks start collapsed except the most recent one (first in the list),
+  // so the page opens showing this week's catalog without burying it.
+  const [openWeeks, setOpenWeeks] = useState<Set<string>>(
+    () => new Set(OTC_WEEKS[0] ? [OTC_WEEKS[0].week] : [])
+  );
+  // Category dropdowns (Movies/Albums/TV) default open — collapsing is
+  // opt-in per section, so expanding an older week still shows everything
+  // in it right away rather than nesting a second click behind the first.
+  const [closedCategories, setClosedCategories] = useState<Set<string>>(new Set());
+
+  function toggleWeek(week: string) {
+    setOpenWeeks((prev) => {
+      const next = new Set(prev);
+      if (next.has(week)) next.delete(week);
+      else next.add(week);
+      return next;
+    });
+  }
+
+  function toggleCategory(key: string) {
+    setClosedCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
 
   const total = OTC_ALL_ITEMS.length;
   const reviewed = OTC_ALL_ITEMS.filter((it) => {
@@ -126,29 +164,49 @@ export default function CatalogPage() {
         for (const item of week.items) {
           (byType[item.type] ??= []).push(item);
         }
+        const weekOpen = openWeeks.has(week.week);
         return (
           <div key={week.week} className="otc-week-block">
-            <div className="otc-week-head">
+            <button
+              type="button"
+              className="otc-week-head otc-week-toggle"
+              onClick={() => toggleWeek(week.week)}
+              aria-expanded={weekOpen}
+            >
+              <Chevron open={weekOpen} />
               <h2 className="otc-week-label">{week.label}</h2>
               <span className="otc-week-dates">{week.dates}</span>
-            </div>
-            {(["movie", "album", "tv"] as const).map((type) => {
-              const items = byType[type];
-              if (!items || items.length === 0) return null;
-              return (
-                <div key={type} className="section">
-                  <div className="section-header">
-                    <h2>{TYPE_GROUP_LABELS[type]}</h2>
-                    <span className="badge">{items.length}</span>
+            </button>
+            {weekOpen &&
+              (["movie", "album", "tv"] as const).map((type) => {
+                const items = byType[type];
+                if (!items || items.length === 0) return null;
+                const categoryKey = `${week.week}-${type}`;
+                const categoryOpen = !closedCategories.has(categoryKey);
+                return (
+                  <div key={type} className="section">
+                    <button
+                      type="button"
+                      className="section-header otc-category-toggle"
+                      onClick={() => toggleCategory(categoryKey)}
+                      aria-expanded={categoryOpen}
+                    >
+                      <span className="otc-category-toggle-label">
+                        <Chevron open={categoryOpen} />
+                        <h2>{TYPE_GROUP_LABELS[type]}</h2>
+                      </span>
+                      <span className="badge">{items.length}</span>
+                    </button>
+                    {categoryOpen && (
+                      <div className="task-list">
+                        {items.map((item) => (
+                          <CatalogCard key={item.id} item={item} />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className="task-list">
-                    {items.map((item) => (
-                      <CatalogCard key={item.id} item={item} />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         );
       })}
