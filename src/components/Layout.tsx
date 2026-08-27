@@ -14,13 +14,14 @@ const OTC_NAV_ITEMS = [
   { to: "/otc", label: "This Week", end: true },
   { to: "/otc/catalog", label: "Catalog & Ratings" },
   { to: "/otc/logbook", label: "Logbook" },
-  { to: "/otc/forum", label: "Photo Forum" },
 ];
 
-export default function Layout({ mode }: { mode: "study" | "otc" }) {
+const FORUM_NAV_ITEMS = [{ to: "/forum", label: "Feed", end: true }];
+
+export default function Layout({ mode }: { mode: "study" | "otc" | "forum" }) {
   const { signOut } = useAuth();
-  const navItems = mode === "otc" ? OTC_NAV_ITEMS : STUDY_NAV_ITEMS;
-  const brand = mode === "otc" ? "Off the Clock" : "StudyFlow";
+  const navItems = mode === "otc" ? OTC_NAV_ITEMS : mode === "forum" ? FORUM_NAV_ITEMS : STUDY_NAV_ITEMS;
+  const brand = mode === "otc" ? "Off the Clock" : mode === "forum" ? "Photo Forum" : "StudyFlow";
 
   return (
     <div className={"app-shell" + (mode === "otc" ? " otc-shell" : "")}>
@@ -63,6 +64,12 @@ export default function Layout({ mode }: { mode: "study" | "otc" }) {
               className={({ isActive }) => "mode-switch-item" + (isActive ? " mode-switch-item-active" : "")}
             >
               Off the Clock
+            </NavLink>
+            <NavLink
+              to="/forum"
+              className={({ isActive }) => "mode-switch-item" + (isActive ? " mode-switch-item-active" : "")}
+            >
+              Photo Forum
             </NavLink>
           </div>
           {mode === "study" && <ReminderBanner />}

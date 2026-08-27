@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useStore } from "../../lib/store";
-import { useAuth } from "../../lib/useAuth";
-import { useForumPosts } from "../../lib/useForumPosts";
+import { useStore } from "../lib/store";
+import { useAuth } from "../lib/useAuth";
+import { useForumPosts } from "../lib/useForumPosts";
 
 type SortMode = "date" | "location" | "username";
 
@@ -77,9 +77,9 @@ export default function ForumPage() {
   }, [posts, sortMode]);
 
   return (
-    <div className="page otc-shell">
+    <div className="page">
       <div className="hero-card">
-        <div className="hero-card-eyebrow">Shared with everyone on Off the Clock</div>
+        <div className="hero-card-eyebrow">Shared with everyone signed in to StudyFlow</div>
         <div className="hero-card-value">Photo Forum</div>
       </div>
       <p className="otc-intro">
