@@ -11,6 +11,7 @@ import CalendarPage from "./pages/CalendarPage";
 import ThisWeekPage from "./pages/offTheClock/ThisWeekPage";
 import CatalogPage from "./pages/offTheClock/CatalogPage";
 import LogbookPage from "./pages/offTheClock/LogbookPage";
+import ForumPage from "./pages/offTheClock/ForumPage";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
                 <Route index element={<ThisWeekPage />} />
                 <Route path="catalog" element={<CatalogPage />} />
                 <Route path="logbook" element={<LogbookPage />} />
+                <Route path="forum" element={<ForumPage />} />
               </Route>
             </Routes>
           </StoreProvider>

@@ -7,5 +7,32 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // Off the Clock's Photo Forum: the one place in this app where users
+    // see each other's data. Any signed-in user can read every post, but
+    // can only create a post as themselves (authorUid must match their own
+    // uid) and can only edit/delete posts they authored. Field checks on
+    // create are a light sanity net, not a substitute for real validation.
+    match /forumPosts/{postId} {
+      allow read: if request.auth != null;
+
+      allow create: if request.auth != null
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() > 0
+        && request.resource.data.authorName.size() <= 60
+        && request.resource.data.location is string
+        && request.resource.data.location.size() <= 120
+        && request.resource.data.driveLink is string
+        && request.resource.data.driveLink.size() > 0
+        && request.resource.data.driveLink.size() <= 2000
+        && request.resource.data.createdAt is string;
+
+      allow update: if request.auth != null
+        && resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorUid == resource.data.authorUid;
+
+      allow delete: if request.auth != null && resource.data.authorUid == request.auth.uid;
+    }
   }
 }

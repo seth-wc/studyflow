@@ -14,6 +14,7 @@ const OTC_NAV_ITEMS = [
   { to: "/otc", label: "This Week", end: true },
   { to: "/otc/catalog", label: "Catalog & Ratings" },
   { to: "/otc/logbook", label: "Logbook" },
+  { to: "/otc/forum", label: "Photo Forum" },
 ];
 
 export default function Layout({ mode }: { mode: "study" | "otc" }) {

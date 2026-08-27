@@ -64,6 +64,7 @@ interface StoreContextValue {
   deleteNote: (id: ID) => void;
   addStudySession: (session: Omit<StudySession, "id">) => StudySession;
   updateOtcRating: (id: string, patch: Partial<OffTheClockRatingEntry>) => void;
+  setUsername: (username: string) => void;
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
@@ -239,6 +240,9 @@ export function StoreProvider({ uid, children }: { uid: string; children: ReactN
           },
         };
       });
+    },
+    setUsername: (username) => {
+      setData((d) => ({ ...d, profile: { ...d.profile, username } }));
     },
   };
 

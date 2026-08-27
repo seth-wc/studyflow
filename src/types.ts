@@ -79,12 +79,20 @@ export interface OffTheClockData {
   ratings: Record<string, OffTheClockRatingEntry>;
 }
 
+export interface UserProfile {
+  // Display name shown on shared content (e.g. Off the Clock's Photo
+  // Forum) — never used for anything private. Empty string until the user
+  // sets one.
+  username: string;
+}
+
 export interface AppData {
   projects: Project[];
   tasks: Task[];
   notes: Note[];
   studySessions: StudySession[];
   offTheClock: OffTheClockData;
+  profile: UserProfile;
 }
 
 export const emptyAppData: AppData = {
@@ -93,4 +101,5 @@ export const emptyAppData: AppData = {
   notes: [],
   studySessions: [],
   offTheClock: { ratings: {} },
+  profile: { username: "" },
 };
