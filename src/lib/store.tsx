@@ -30,6 +30,16 @@ function newId(): ID {
   return crypto.randomUUID();
 }
 
+// Firestore's setDoc() throws synchronously if any field in the document is
+// `undefined` (e.g. an optional form field like "course code" left blank
+// becomes `code: undefined`). Every value in this app's data is plain JSON
+// (strings, numbers, booleans, null, arrays, objects — dates are stored as
+// ISO strings), so round-tripping through JSON reliably drops those
+// `undefined` keys before the document is written.
+function sanitizeForFirestore<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value));
+}
+
 interface StoreContextValue {
   data: AppData;
   addProject: (project: Omit<Project, "id" | "archived" | "classSchedule"> & { classSchedule?: Project["classSchedule"] }) => Project;
@@ -64,7 +74,7 @@ export function StoreProvider({ uid, children }: { uid: string; children: ReactN
         } else {
           // Brand new account — create their document with placeholder data.
           const seeded = seedData();
-          setDoc(ref, seeded).catch((err) => {
+          setDoc(ref, sanitizeForFirestore(seeded)).catch((err) => {
             console.error("Failed to create initial data", err);
           });
           setDataState(seeded);
@@ -86,10 +96,18 @@ export function StoreProvider({ uid, children }: { uid: string; children: ReactN
     setDataState((prev) => {
       if (!prev) return prev;
       const next = updater(prev);
-      setDoc(doc(db, "users", uid), next).catch((err) => {
+      try {
+        setDoc(doc(db, "users", uid), sanitizeForFirestore(next)).catch((err) => {
+          console.error("Failed to save data", err);
+          setSyncError("Couldn't save your last change — check your connection.");
+        });
+      } catch (err) {
+        // setDoc() validates its argument synchronously and throws rather
+        // than rejecting for some errors — catch that too so a bad write
+        // never crashes the whole app.
         console.error("Failed to save data", err);
         setSyncError("Couldn't save your last change — check your connection.");
-      });
+      }
       return next;
     });
   }

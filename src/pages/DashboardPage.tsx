@@ -43,20 +43,48 @@ export default function DashboardPage() {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const tasksToday = data.tasks.filter((t) => t.dueDate === todayStr);
+  const completedToday = tasksToday.filter((t) => t.done).length;
+  const progressPct = tasksToday.length ? Math.round((completedToday / tasksToday.length) * 100) : 0;
+  const heroPreview = (dueToday.length ? dueToday : upcoming).slice(0, 2);
+
   return (
     <div className="page">
-      <h1>{greeting}</h1>
+      <div className="hero-card">
+        <div className="hero-card-eyebrow">{greeting}</div>
+        <div className="hero-card-value">
+          {tasksToday.length
+            ? `${completedToday}/${tasksToday.length} tasks done today`
+            : "Nothing due today"}
+        </div>
+        <div className="hero-progress-track">
+          <div className="hero-progress-fill" style={{ width: `${progressPct}%` }} />
+        </div>
+        {heroPreview.length > 0 && (
+          <div className="hero-pills">
+            {heroPreview.map((task) => (
+              <span key={task.id} className="hero-pill">
+                {task.title}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="stat-row">
         <div className="card stat-tile">
+          <span className="stat-dot" style={{ background: "var(--accent)" }} />
           <div className="stat-value">{dueToday.length}</div>
           <div className="stat-label">Due today</div>
         </div>
         <div className="card stat-tile">
+          <span className="stat-dot" style={{ background: "var(--danger)" }} />
           <div className="stat-value">{overdue.length}</div>
           <div className="stat-label">Overdue</div>
         </div>
         <div className="card stat-tile">
+          <span className="stat-dot" style={{ background: "var(--accent-2)" }} />
           <div className="stat-value">{todayMinutes}m</div>
           <div className="stat-label">Studied today</div>
         </div>
@@ -79,22 +107,26 @@ export default function DashboardPage() {
           const due = dueLabel(task.dueDate);
           return (
             <div key={task.id} className="card task-item">
+              <div
+                className="project-badge"
+                style={{ background: project?.color ?? "var(--text-muted)" }}
+              >
+                {(project?.name ?? task.title).charAt(0).toUpperCase()}
+              </div>
               <div className="task-body">
                 <div className="task-title">{task.title}</div>
                 <div className="task-meta">
-                  {project && (
-                    <span>
-                      <span
-                        className="project-color-dot"
-                        style={{ background: project.color, display: "inline-block", marginRight: 4 }}
-                      />
-                      {project.name}
-                    </span>
-                  )}
+                  {project && <span>{project.name}</span>}
                   <span>{TYPE_LABELS[task.type]}</span>
-                  {due && <span className={due.overdue ? "task-meta-overdue" : ""}>{due.label}</span>}
                 </div>
               </div>
+              {due && (
+                <span
+                  className={"badge task-item-trailing" + (due.overdue ? " badge-overdue" : "")}
+                >
+                  {due.label}
+                </span>
+              )}
             </div>
           );
         })}
