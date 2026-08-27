@@ -35,7 +35,7 @@ exports.notifyOnForumPost = onDocumentCreated("forumPosts/{postId}", async (even
   const response = await getMessaging().sendEachForMulticast({
     tokens: recipientTokens,
     notification: { title, body },
-    data: { url: "/studyflow/#/forum" },
+    data: { url: "/studyflow/#/forum", postId: event.params.postId },
   });
 
   const staleDocIds = [];

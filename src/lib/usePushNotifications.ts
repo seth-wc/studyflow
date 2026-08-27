@@ -36,7 +36,11 @@ export function usePushNotifications(uid: string | undefined) {
         if (Notification.permission !== "granted") return;
         const title = payload.notification?.title ?? "New Photo Forum post";
         const body = payload.notification?.body ?? "";
-        new Notification(title, { body, icon: `${import.meta.env.BASE_URL}icons/icon-192.png` });
+        new Notification(title, {
+          body,
+          icon: `${import.meta.env.BASE_URL}icons/icon-192.png`,
+          tag: payload.data?.postId ?? "forum-post",
+        });
       });
     });
     return () => unsubscribeMessage?.();

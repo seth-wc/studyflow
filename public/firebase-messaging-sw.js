@@ -26,6 +26,7 @@ messaging.onBackgroundMessage((payload) => {
   self.registration.showNotification(title, {
     body,
     icon: "/studyflow/icons/icon-192.png",
+    tag: payload.data?.postId ?? "forum-post",
     data: { url: payload.data?.url ?? "/studyflow/#/forum" },
   });
 });
