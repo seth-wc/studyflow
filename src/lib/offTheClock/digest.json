@@ -1,8 +1,7 @@
 {
   "week": "Week 34, 2026",
   "dateRange": "17–23 August 2026",
-  "standfirst": "Three movies, six albums, a TV pick that sticks around until you rate or skip it, and what actually happened in the world and at home this week. None of last week's three movies got rated, so all three carry into a Catch Up section below.",
-
+  "standfirst": "Three movies, six albums, a TV pick that sticks around until you rate or skip it, and what actually happened in the world and at home this week. None of last week’s three movies got rated, so all three carry into a Catch Up section below. Rate this week’s picks on the companion page linked below — it’ll sharpen what shows up here next time.",
   "movies": [
     {
       "title": "Mother Mary",
@@ -26,7 +25,6 @@
       "linkLabel": "View the review"
     }
   ],
-
   "albums": [
     {
       "artist": "Squirrel Flower",
@@ -71,7 +69,6 @@
       "link": "https://notjustok.com/article/the-best-afrobeats-albums-of-2026-so-far/"
     }
   ],
-
   "tvPick": {
     "title": "Lanterns",
     "meta": "HBO — premieres Aug 16 — w/ Kyle Chandler, Aaron Pierre",
@@ -79,36 +76,34 @@
     "link": "https://www.cinemablend.com/television/2026-tv-premiere-date-schedule-network-streaming-series",
     "linkLabel": "View the premiere details"
   },
-
   "catchUp": [
     {
       "title": "Michael",
       "meta": "Biography / Drama — Starz — dir. Antoine Fuqua",
-      "body": "The Michael Jackson biopic became one of 2026's biggest box-office stories, grossing over $1 billion worldwide, and arrives on Starz this week. Fuqua reworked the third act after production setbacks to lean harder into the music and the rise to stardom rather than the tabloid years.",
+      "body": "The Michael Jackson biopic became one of 2026's biggest box-office stories, grossing over $1 billion worldwide, and arrives on Starz this week. Fuqua reworked the third act after production setbacks to lean harder into the music and the rise to stardom rather than the tabloid years — for better or worse, it's the version of the story the studio bet a billion dollars people wanted.",
       "link": "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/",
       "linkLabel": "View the review"
     },
     {
       "title": "Normal",
       "meta": "Action / Thriller — Hulu — dir. Ben Wheatley",
-      "body": "Bob Odenkirk plays an interim Minnesota sheriff pulled into a conspiracy after a small-town bank robbery goes sideways. Written by Derek Kolstad (John Wick) and directed by Ben Wheatley — another notch in Odenkirk's unlikely second act as a bruised, competent action lead.",
+      "body": "Bob Odenkirk plays an interim Minnesota sheriff pulled into a conspiracy after a small-town bank robbery goes sideways. Written by Derek Kolstad (the guy who invented John Wick) and directed by Ben Wheatley, it's another notch in Odenkirk's unlikely second act as a bruised, competent action lead — the Nobody formula, relocated to the Midwest.",
       "link": "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/",
       "linkLabel": "View the review"
     },
     {
       "title": "The X-Files: I Want to Believe — restored cut",
       "meta": "Sci-Fi / Thriller — Hulu — dir. Chris Carter",
-      "body": "A newly restored, R-rated cut of Chris Carter's divisive 2008 film finally lands on streaming, and it's a genuinely different watch — darker and more intense than the theatrical release fans have argued about for nearly two decades.",
+      "body": "A newly restored, R-rated cut of Chris Carter's divisive 2008 film finally lands on streaming, and it's a genuinely different watch — darker and more intense than the theatrical release fans have argued about for nearly two decades. Worth revisiting even if you bounced off it the first time.",
       "link": "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/",
       "linkLabel": "View the review"
     }
   ],
-
   "worldNews": [
     {
       "headline": "Israel-Palestine — Gaza ceasefire in name only",
       "tag": "Middle East",
-      "body": "Jared Kushner met Netanyahu to push the Board of Peace's Hamas disarmament plan; the two sides “compromised” by letting Israel keep operating in Gaza and delay any troop withdrawal until Hamas verifiably disarms — the opposite of the staged, mutual pullout Hamas and the board agreed to last month.",
+      "body": "Jared Kushner met Netanyahu to push the Board of Peace's Hamas disarmament plan; the two sides “compromised” by letting Israel keep operating in Gaza and delay any troop withdrawal until Hamas verifiably disarms — the opposite of the staged, mutual pullout Hamas and the board agreed to last month. Trump has suggested Israel should stop its near-daily strikes; so far it hasn't.",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-17-2026"
     },
@@ -129,73 +124,72 @@
     {
       "headline": "Canada — US trade talks collapse, tariffs incoming",
       "tag": "Americas",
-      "body": "Trade talks broke down Friday night, putting the US on track to impose 50% tariffs on over $20 billion of Canadian goods. PM Mark Carney pledged “dollar for dollar” retaliation starting September 8.",
+      "body": "Trade talks broke down Friday night, putting the US on track to impose 50% tariffs on over $20 billion of Canadian goods. PM Mark Carney pledged “dollar for dollar” retaliation starting September 8 and said the US signature on any deal was effectively “written in pencil.”",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-22-23-2026"
     },
     {
       "headline": "DR Congo — a peace roadmap, and an Ebola death toll past 2,500",
       "tag": "Africa",
-      "body": "Kinshasa and the M23 militia agreed on a roadmap for peace talks, though fighting continues in the east. Separately, the death toll from the region's Ebola outbreak passed 2,500.",
+      "body": "Kinshasa and the M23 militia agreed on a roadmap for peace talks, including mechanisms to report ceasefire violations, though fighting continues in the east. Separately, the death toll from the region's Ebola outbreak passed 2,500, with researchers pointing to years of militarized governance as a root cause of the epidemic's scale.",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-22-23-2026"
     },
     {
       "headline": "Somalia — child hunger crisis deepens after aid cuts",
       "tag": "Africa",
-      "body": "UNICEF says malnutrition-related hospital admissions for Somali children rose 32% in the first half of the year. Aid cuts could force up to 618 health facilities to close by year's end.",
+      "body": "UNICEF says malnutrition-related hospital admissions for Somali children rose 32% in the first half of the year. Aid cuts could force up to 618 health facilities to close by year's end; Doctors Without Borders says malnutrition funding alone is down more than 80%.",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-22-23-2026"
     },
     {
       "headline": "Iran — a mediator heads to Tehran, no breakthrough expected",
       "tag": "Middle East",
-      "body": "Pakistan's military chief Asim Munir was set to visit Iran to try to revive talks over the ongoing US standoff, as Tehran threatens “seismic” retaliation against any country joining a new round of US sanctions.",
+      "body": "Pakistan's military chief Asim Munir was set to visit Iran to try to revive talks over the ongoing US standoff, as Tehran threatens “seismic” retaliation against any country joining a new round of US sanctions — including a threat to block Gulf oil shipments entirely.",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-22-23-2026"
     },
     {
       "headline": "United States — deportees refused entry in Liberia, flown on to Equatorial Guinea",
       "tag": "Americas",
-      "body": "At least five people deported by the US to Liberia were flown on to Equatorial Guinea after resisting getting off the plane — the first known case of the US redirecting a deportation flight mid-route to a third country neither had any tie to.",
+      "body": "At least five people deported by the US to Liberia — four Cuban men, a Brazilian and a Cameroonian woman — were flown on to Equatorial Guinea after resisting getting off the plane, the first known case of the US redirecting a deportation flight mid-route to a third country neither had any tie to.",
       "sourceName": "Foreign Exchanges",
       "sourceUrl": "https://www.foreignexchanges.news/p/world-roundup-august-22-23-2026"
     }
   ],
-
   "auNews": [
     {
       "headline": "Victorian teachers vote yes on revised pay deal",
       "tag": "Victoria",
-      "body": "79% of voting Australian Education Union members backed a government offer of 28.3–32.4% pay rises over four years plus a $2,000 lump sum, ending months of bargaining that included two strikes.",
+      "body": "79% of voting Australian Education Union members backed a government offer of 28.3–32.4% pay rises over four years plus a $2,000 lump sum, ending months of bargaining that included two strikes. A third strike planned for this week has been called off; the deal still needs a full staff vote and Fair Work Commission sign-off, expected by October.",
       "sourceName": "ABC News",
       "sourceUrl": "https://www.abc.net.au/news/2026-08-17/victorian-teachers-pay-deal-education/107045484"
     },
     {
       "headline": "Victoria's election is under 100 days away, and it's genuinely competitive",
       "tag": "Victoria",
-      "body": "After 12 years in opposition, the Coalition has a real shot at government on November 28 — but a resurgent One Nation complicates the maths for everyone.",
+      "body": "After 12 years in opposition, the Coalition has a real shot at government on November 28 — but a resurgent One Nation complicates the maths for everyone. Labor could lose 20-plus seats after three terms in power; a minority government is a live possibility.",
       "sourceName": "ABC News",
       "sourceUrl": "https://www.abc.net.au/news/2026-08-22/coalition-path-to-victory-victoria-state-election-2026/107063196"
     },
     {
       "headline": "Premier pledges 10 free walk-in dental clinics",
       "tag": "Victoria",
-      "body": "Ben Carroll promised seven free clinics for Melbourne and three for regional Victoria — a $230 million, first-in-Australia policy expected to serve 100,000+ people a year if Labor wins re-election.",
+      "body": "Ben Carroll promised seven free clinics for Melbourne and three for regional Victoria, offering check-ups, fillings, root canals and extractions to anyone who walks in — a $230 million, first-in-Australia policy expected to serve 100,000+ people a year if Labor wins re-election.",
       "sourceName": "ABC News",
       "sourceUrl": "https://www.abc.net.au/news/2026-08-22/victorian-government-promises-free-public-dental-clinics/107065478"
     },
     {
       "headline": "Coalition vows to scrap the VNI West transmission line",
       "tag": "Victoria",
-      "body": "The Liberals and Nationals pledged to cancel the VNI West project through western Victorian farmland — a direct pitch for One Nation-curious regional voters ahead of November.",
+      "body": "The Liberals and Nationals pledged to cancel the VNI West project through western Victorian farmland, a direct pitch for One Nation-curious regional voters ahead of November — and a sign of how seriously the major parties are taking the minor party's threat in the bush.",
       "sourceName": "ABC News",
       "sourceUrl": "https://www.abc.net.au/news/2026-08-19/victorian-coalition-promises-to-scrap-vni-west-transmission-line/107053638"
     },
     {
       "headline": "Carroll announces a construction industry royal commission",
       "tag": "Victoria",
-      "body": "The premier committed to a royal commission into the construction sector and to strengthening the state's anti-corruption watchdog sooner than planned.",
+      "body": "The premier committed to a royal commission into the construction sector and to strengthening the state's anti-corruption watchdog sooner than planned — an attempt to shore up Labor's standing in inner-Melbourne seats where integrity has been a persistent sore point.",
       "sourceName": "ABC News",
       "sourceUrl": "https://www.abc.net.au/news/2026-08-20/vic-premier-ben-carroll-announces-construction-royal-commission/107057862"
     }
