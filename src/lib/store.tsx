@@ -1,18 +1,19 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import type { AppData, Project, Task, Note, StudySession, ID } from "../types";
 import { emptyAppData } from "../types";
 import { PROJECT_COLORS } from "./colors";
 import { nextDueDate } from "./recurrence";
+import { db } from "./firebase";
 
 // This is the single place the rest of the app reads/writes data through.
-// Right now it persists to localStorage. When Firebase sync is added, only
-// this file needs to change (load/save + real-time subscription) — every
-// component that uses useStore() keeps working unchanged.
-
-const STORAGE_KEY = "productivity-app-data-v2";
+// It syncs to Firestore, one document per signed-in user at users/{uid}.
+// Every component that uses useStore() is unaware of the transport —
+// it just sees `data` and a handful of mutator functions.
 
 /** First-run placeholder data: 4 blank classes, ready to rename once real
- * course details are known. Only used when there's nothing saved yet. */
+ * course details are known. Only used the first time a user's document
+ * doesn't exist yet (i.e. right after they sign up). */
 function seedData(): AppData {
   const placeholderClasses: Project[] = [1, 2, 3, 4].map((n) => ({
     id: crypto.randomUUID(),
@@ -23,21 +24,6 @@ function seedData(): AppData {
     classSchedule: [],
   }));
   return { ...emptyAppData, projects: placeholderClasses };
-}
-
-function load(): AppData {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return seedData();
-    const parsed = JSON.parse(raw);
-    return { ...emptyAppData, ...parsed };
-  } catch {
-    return seedData();
-  }
-}
-
-function save(data: AppData) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 function newId(): ID {
@@ -61,12 +47,62 @@ interface StoreContextValue {
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
-export function StoreProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<AppData>(load);
+export function StoreProvider({ uid, children }: { uid: string; children: ReactNode }) {
+  const [data, setDataState] = useState<AppData | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   useEffect(() => {
-    save(data);
-  }, [data]);
+    setDataState(null);
+    setSyncError(null);
+    const ref = doc(db, "users", uid);
+    const unsubscribe = onSnapshot(
+      ref,
+      (snap) => {
+        setSyncError(null);
+        if (snap.exists()) {
+          setDataState({ ...emptyAppData, ...(snap.data() as Partial<AppData>) });
+        } else {
+          // Brand new account — create their document with placeholder data.
+          const seeded = seedData();
+          setDoc(ref, seeded).catch((err) => {
+            console.error("Failed to create initial data", err);
+          });
+          setDataState(seeded);
+        }
+      },
+      (err) => {
+        console.error("Firestore sync error", err);
+        setSyncError("Couldn't sync your data — check your connection.");
+      }
+    );
+    return () => unsubscribe();
+  }, [uid]);
+
+  // Every mutator below goes through this: apply the change locally, then
+  // push the whole (small) document back to Firestore. The onSnapshot
+  // listener above will receive our own write back, which is a harmless
+  // no-op re-render since the content matches what we already have.
+  function setData(updater: (d: AppData) => AppData) {
+    setDataState((prev) => {
+      if (!prev) return prev;
+      const next = updater(prev);
+      setDoc(doc(db, "users", uid), next).catch((err) => {
+        console.error("Failed to save data", err);
+        setSyncError("Couldn't save your last change — check your connection.");
+      });
+      return next;
+    });
+  }
+
+  if (!data) {
+    return (
+      <div className="app-shell">
+        <div className="page" style={{ paddingTop: 40 }}>
+          <p className="page-placeholder">{syncError ?? "Loading your data…"}</p>
+        </div>
+      </div>
+    );
+  }
 
   const value: StoreContextValue = {
     data,

@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import AuthGate from "./components/AuthGate";
 import { StoreProvider } from "./lib/store";
 import DashboardPage from "./pages/DashboardPage";
 import TasksPage from "./pages/TasksPage";
@@ -10,19 +11,23 @@ import CalendarPage from "./pages/CalendarPage";
 
 export default function App() {
   return (
-    <StoreProvider>
-      <HashRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<DashboardPage />} />
-            <Route path="tasks" element={<TasksPage />} />
-            <Route path="projects" element={<ProjectsPage />} />
-            <Route path="projects/:projectId" element={<ProjectDetailPage />} />
-            <Route path="timer" element={<TimerPage />} />
-            <Route path="calendar" element={<CalendarPage />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-    </StoreProvider>
+    <HashRouter>
+      <AuthGate>
+        {(user) => (
+          <StoreProvider uid={user.uid}>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<DashboardPage />} />
+                <Route path="tasks" element={<TasksPage />} />
+                <Route path="projects" element={<ProjectsPage />} />
+                <Route path="projects/:projectId" element={<ProjectDetailPage />} />
+                <Route path="timer" element={<TimerPage />} />
+                <Route path="calendar" element={<CalendarPage />} />
+              </Route>
+            </Routes>
+          </StoreProvider>
+        )}
+      </AuthGate>
+    </HashRouter>
   );
 }

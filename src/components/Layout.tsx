@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import ReminderBanner from "./ReminderBanner";
+import { useAuth } from "../lib/useAuth";
 
 const navItems = [
   { to: "/", label: "Home", end: true },
@@ -10,10 +11,19 @@ const navItems = [
 ];
 
 export default function Layout() {
+  const { signOut } = useAuth();
   return (
     <div className="app-shell">
       <header className="app-header">
         <span className="app-title">StudyFlow</span>
+        <button
+          type="button"
+          className="btn"
+          style={{ marginLeft: "auto", fontSize: 13, padding: "4px 10px" }}
+          onClick={() => signOut()}
+        >
+          Sign out
+        </button>
       </header>
       <main className="app-content">
         <ReminderBanner />
