@@ -14,22 +14,8 @@ export default function Layout() {
   const { signOut } = useAuth();
   return (
     <div className="app-shell">
-      <header className="app-header">
-        <span className="app-title">StudyFlow</span>
-        <button
-          type="button"
-          className="btn"
-          style={{ marginLeft: "auto", fontSize: 13, padding: "4px 10px" }}
-          onClick={() => signOut()}
-        >
-          Sign out
-        </button>
-      </header>
-      <main className="app-content">
-        <ReminderBanner />
-        <Outlet />
-      </main>
       <nav className="app-nav">
+        <div className="app-nav-brand">StudyFlow</div>
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -41,6 +27,23 @@ export default function Layout() {
           </NavLink>
         ))}
       </nav>
+      <div className="app-main">
+        <header className="app-header">
+          <span className="app-title">StudyFlow</span>
+          <button
+            type="button"
+            className="btn"
+            style={{ marginLeft: "auto", fontSize: 13, padding: "4px 10px" }}
+            onClick={() => signOut()}
+          >
+            Sign out
+          </button>
+        </header>
+        <main className="app-content">
+          <ReminderBanner />
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

@@ -80,6 +80,13 @@ button {
   background: var(--bg);
 }
 
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
 .app-header {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
@@ -113,6 +120,10 @@ button {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+.app-nav-brand {
+  display: none;
+}
+
 .nav-item {
   flex: 1;
   text-align: center;
@@ -126,6 +137,69 @@ button {
 .nav-item-active {
   color: var(--accent);
   font-weight: 600;
+}
+
+/* Desktop: swap the mobile app-shell (narrow column + bottom tab bar) for a
+   sidebar layout that actually uses a wide viewport, like a normal web app
+   rather than a phone screen floating in the middle of the page. */
+@media (min-width: 860px) {
+  .app-shell {
+    flex-direction: row;
+    max-width: none;
+    min-height: 100vh;
+  }
+
+  .app-nav {
+    position: static;
+    transform: none;
+    bottom: auto;
+    width: 240px;
+    max-width: none;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    border-top: none;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    padding: 24px 16px;
+    padding-bottom: 24px;
+  }
+
+  .app-nav-brand {
+    display: block;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+    padding: 0 14px 20px;
+  }
+
+  .nav-item {
+    flex: none;
+    text-align: left;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .nav-item-active {
+    background: rgba(109, 91, 255, 0.12);
+  }
+
+  .app-header {
+    padding: 20px 40px;
+  }
+
+  .app-header .app-title {
+    display: none;
+  }
+
+  .app-content {
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 40px;
+  }
 }
 
 .page {
