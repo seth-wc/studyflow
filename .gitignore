@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.local
+.DS_Store
+*.log
+
+# leftover sync artifact from earlier setup attempt
+_sync.tar.gz
