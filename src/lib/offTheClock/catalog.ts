@@ -1,5 +1,8 @@
-// Auto-generated snapshot of rate.html's catalog as of Week 34, 2026.
-// This is a one-time import, not a live sync — ask Claude to refresh it for a newer week.
+// Catalog data now lives in catalog.json (plain data, no TypeScript syntax)
+// so the weekly automation script can overwrite it directly. This file just
+// supplies the types and re-exports it as typed constants for the app.
+
+import catalogData from "./catalog.json";
 
 export interface OtcCatalogItem {
   id: string;
@@ -18,41 +21,7 @@ export interface OtcWeek {
   items: OtcCatalogItem[];
 }
 
-export const OTC_WEEKS: OtcWeek[] = [
-  {
-    week: "2026-W34",
-    label: "Week 34, 2026",
-    dates: "17\u201323 August",
-    items: [
-      { id: "2026-w34-movie-mother-mary", type: "movie", genre: "Drama / Music", creator: "David Lowery", title: "Mother Mary", year: "2026", link: "https://www.timeout.com/news/best-new-movies-to-stream-this-week-061926" },
-      { id: "2026-w34-movie-i-swear", type: "movie", genre: "Biography / Drama", creator: "Kirk Jones", title: "I Swear", year: "2025", link: "https://www.timeout.com/news/best-new-movies-to-stream-this-week-061926" },
-      { id: "2026-w34-movie-the-christophers", type: "movie", genre: "Comedy / Drama", creator: "Steven Soderbergh", title: "The Christophers", year: "2025", link: "https://www.timeout.com/news/best-new-movies-to-stream-this-week-061926" },
-      { id: "2026-w34-album-say-a-prayer-to-the-gods-of-getting-going", type: "album", genre: "Indie / Folk", creator: "Squirrel Flower", title: "Say a Prayer to the Gods of Getting Going", year: "2026", link: "https://www.npr.org/2026/08/21/nx-s1-5939890/new-music-friday-best-albums-aug-21-2026" },
-      { id: "2026-w34-album-what-are-the-odds", type: "album", genre: "UK Garage / Afro-House", creator: "Jorja Smith", title: "What Are The Odds", year: "2026", link: "https://www.npr.org/2026/08/21/nx-s1-5939890/new-music-friday-best-albums-aug-21-2026" },
-      { id: "2026-w34-album-materia", type: "album", genre: "Art Pop / Experimental", creator: "Julia Holter", title: "Materia", year: "2026", link: "https://www.npr.org/2026/08/21/nx-s1-5939890/new-music-friday-best-albums-aug-21-2026" },
-      { id: "2026-w34-album-thrasher", type: "album", genre: "Alternative Rock", creator: "Brandon Flowers", title: "THRASHER", year: "2026", link: "https://www.npr.org/2026/08/21/nx-s1-5939890/new-music-friday-best-albums-aug-21-2026" },
-      { id: "2026-w34-album-it-goes-on", type: "album", genre: "Indie Rock / Americana", creator: "Westside Cowboy", title: "It Goes On", year: "2026", link: "https://www.npr.org/2026/08/21/nx-s1-5939890/new-music-friday-best-albums-aug-21-2026" },
-      { id: "2026-w34-album-clarity-of-mind", type: "album", genre: "Afrobeats", creator: "Omah Lay", title: "Clarity of Mind", year: "2026", link: "https://notjustok.com/article/the-best-afrobeats-albums-of-2026-so-far/" },
-    ],
-  },
-  {
-    week: "2026-W33",
-    label: "Week 33, 2026",
-    dates: "10\u201316 August",
-    items: [
-      { id: "2026-w33-movie-michael", type: "movie", genre: "Biography / Drama", creator: "Antoine Fuqua", title: "Michael", year: "2026", link: "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/" },
-      { id: "2026-w33-movie-normal", type: "movie", genre: "Action / Thriller", creator: "Ben Wheatley", title: "Normal", year: "2026", link: "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/" },
-      { id: "2026-w33-movie-the-x-files-i-want-to-believe-restored-cut", type: "movie", genre: "Sci-Fi / Thriller", creator: "Chris Carter", title: "The X-Files: I Want to Believe (restored cut)", year: "2008", link: "https://www.thewrap.com/creative-content/what-to-watch/best-new-streaming-movies-august-2026/" },
-      { id: "2026-w33-album-lost-weekend", type: "album", genre: "Indie / Alternative", creator: "Phoebe Bridgers", title: "Lost Weekend", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-album-alien-metal", type: "album", genre: "Psych Rock / Metal", creator: "King Gizzard & the Lizard Wizard", title: "Alien Metal", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-album-starrgirl", type: "album", genre: "Afrobeats / Pop", creator: "Ayra Starr", title: "Starrgirl", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-album-black-mozart-vol-2", type: "album", genre: "Jazz", creator: "Jon Batiste", title: "Black Mozart Vol. 2", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-album-sunshine", type: "album", genre: "Electronic / Pop", creator: "Jungle", title: "Sunshine", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-album-fata-morgana", type: "album", genre: "Experimental / Electronic", creator: "L'Rain", title: "fata morgana", year: "2026", link: "https://www.npr.org/2026/08/14/nx-s1-5928519/new-music-friday-best-albums-aug-14-2026" },
-      { id: "2026-w33-tv-lanterns", type: "tv", genre: "Prestige / Sci-Fi", creator: "HBO", title: "Lanterns", year: "2026", link: "https://www.cinemablend.com/television/2026-tv-premiere-date-schedule-network-streaming-series" },
-    ],
-  },
-];
+export const OTC_WEEKS: OtcWeek[] = catalogData.weeks as OtcWeek[];
 
 /** All catalog items across every week, flattened, for quick id lookup
  * (the Logbook and status chips need this regardless of week grouping). */
