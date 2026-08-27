@@ -21,8 +21,8 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  const title = payload.notification?.title ?? "Off the Clock Photo Forum";
-  const body = payload.notification?.body ?? "Someone posted a new photo.";
+  const title = payload.data?.title ?? "Off the Clock Photo Forum";
+  const body = payload.data?.body ?? "Someone posted a new photo.";
   self.registration.showNotification(title, {
     body,
     icon: "/studyflow/icons/icon-192.png",

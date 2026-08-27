@@ -34,8 +34,8 @@ export function usePushNotifications(uid: string | undefined) {
       if (!messaging) return;
       unsubscribeMessage = onMessage(messaging, (payload) => {
         if (Notification.permission !== "granted") return;
-        const title = payload.notification?.title ?? "New Photo Forum post";
-        const body = payload.notification?.body ?? "";
+        const title = payload.data?.title ?? "New Photo Forum post";
+        const body = payload.data?.body ?? "";
         new Notification(title, {
           body,
           icon: `${import.meta.env.BASE_URL}icons/icon-192.png`,

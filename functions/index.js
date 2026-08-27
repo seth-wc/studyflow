@@ -34,8 +34,12 @@ exports.notifyOnForumPost = onDocumentCreated("forumPosts/{postId}", async (even
 
   const response = await getMessaging().sendEachForMulticast({
     tokens: recipientTokens,
-    notification: { title, body },
-    data: { url: "/studyflow/#/forum", postId: event.params.postId },
+    // Data-only payload (no top-level "notification" key): sending a
+    // "notification" field makes the browser auto-display its own
+    // notification IN ADDITION to the one our handlers below show
+    // explicitly, producing two banners for one post. Data-only puts us
+    // in full control -- exactly one notification, shown by our code.
+    data: { url: "/studyflow/#/forum", postId: event.params.postId, title, body },
   });
 
   const staleDocIds = [];
