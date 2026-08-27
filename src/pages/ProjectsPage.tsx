@@ -43,7 +43,9 @@ export default function ProjectsPage() {
         {active.map((project) => (
           <Link key={project.id} to={`/projects/${project.id}`} style={{ textDecoration: "none", color: "inherit" }}>
             <div className="card project-card">
-              <span className="project-color-dot" style={{ background: project.color }} />
+              <div className="project-badge" style={{ background: project.color }}>
+                {project.name.charAt(0).toUpperCase()}
+              </div>
               <div className="project-meta">
                 <div className="project-name">{project.name}</div>
                 <div className="project-sub">

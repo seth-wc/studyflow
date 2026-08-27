@@ -240,6 +240,17 @@ button {
   font-size: 20px;
   font-weight: 700;
   margin-top: 2px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.hero-card-eyebrow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hero-pill-btn {
+  border: none;
+  cursor: pointer;
+  font: inherit;
 }
 
 .hero-progress-track {
@@ -293,6 +304,37 @@ button {
   color: #fff;
   font-weight: 700;
   font-size: 14px;
+}
+
+.project-badge-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.project-chip {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.timer-display-running {
+  color: var(--accent);
 }
 
 .badge-overdue {

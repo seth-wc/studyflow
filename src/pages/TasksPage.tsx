@@ -108,26 +108,31 @@ export default function TasksPage() {
                 checked={task.done}
                 onChange={() => toggleTaskDone(task.id)}
               />
+              <div
+                className="project-badge"
+                style={{ background: project?.color ?? "var(--text-muted)" }}
+              >
+                {(project?.name ?? task.title).charAt(0).toUpperCase()}
+              </div>
               <div className="task-body">
                 <div className={"task-title" + (task.done ? " done" : "")}>{task.title}</div>
                 <div className="task-meta">
-                  {project && (
-                    <span>
-                      <span className="project-color-dot" style={{ background: project.color, display: "inline-block", marginRight: 4 }} />
-                      {project.name}
-                    </span>
-                  )}
+                  {project && <span>{project.name}</span>}
                   <span>{TYPE_LABELS[task.type]}</span>
-                  {due && (
-                    <span className={due.overdue && !task.done ? "task-meta-overdue" : ""}>
-                      {due.label}
-                    </span>
-                  )}
                   {task.recurrence && task.recurrence.freq !== "none" && (
                     <span>↻ {task.recurrence.freq}</span>
                   )}
                 </div>
               </div>
+              {due && (
+                <span
+                  className={
+                    "badge task-item-trailing" + (due.overdue && !task.done ? " badge-overdue" : "")
+                  }
+                >
+                  {due.label}
+                </span>
+              )}
               <button
                 type="button"
                 className="icon-btn"

@@ -106,31 +106,40 @@ export default function ProjectDetailPage() {
       </Link>
 
       {!editingProject && (
-        <div className="card">
-          <div className="section-header">
-            <div className="project-meta">
-              <span className="project-color-dot" style={{ background: project.color, marginRight: 6 }} />
-              <span className="project-name">{project.name}</span>
-              <div className="project-sub">
-                {project.kind === "class" ? "Class" : "Personal"}
+        <div
+          className="hero-card"
+          style={{ background: `linear-gradient(135deg, ${project.color}, var(--accent-2))` }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div className="project-badge-lg">{project.name.charAt(0).toUpperCase()}</div>
+            <div>
+              <div className="hero-card-eyebrow">
+                {project.kind === "class" ? "Class" : "Personal project"}
                 {project.code ? ` · ${project.code}` : ""}
                 {project.term ? ` · ${project.term}` : ""}
               </div>
+              <div className="hero-card-value">{project.name}</div>
             </div>
-            <button className="btn" onClick={() => setEditingProject(true)}>
+          </div>
+          <div className="hero-pills" style={{ marginTop: 16 }}>
+            <button
+              type="button"
+              className="hero-pill hero-pill-btn"
+              onClick={() => setEditingProject(true)}
+            >
               Edit
             </button>
+            <button
+              type="button"
+              className="hero-pill hero-pill-btn"
+              onClick={() => {
+                archiveProject(project.id);
+                navigate("/projects");
+              }}
+            >
+              Archive project
+            </button>
           </div>
-          <button
-            className="btn"
-            style={{ marginTop: 12 }}
-            onClick={() => {
-              archiveProject(project.id);
-              navigate("/projects");
-            }}
-          >
-            Archive project
-          </button>
         </div>
       )}
       {editingProject && (
@@ -219,14 +228,20 @@ export default function ProjectDetailPage() {
                 <div className={"task-title" + (task.done ? " done" : "")}>{task.title}</div>
                 <div className="task-meta">
                   <span>{TYPE_LABELS[task.type]}</span>
-                  {due && (
-                    <span className={due.overdue && !task.done ? "task-meta-overdue" : ""}>{due.label}</span>
-                  )}
                   {task.recurrence && task.recurrence.freq !== "none" && (
                     <span>↻ {task.recurrence.freq}</span>
                   )}
                 </div>
               </div>
+              {due && (
+                <span
+                  className={
+                    "badge task-item-trailing" + (due.overdue && !task.done ? " badge-overdue" : "")
+                  }
+                >
+                  {due.label}
+                </span>
+              )}
               <button type="button" className="icon-btn" title="Delete" onClick={() => deleteTask(task.id)}>
                 ✕
               </button>

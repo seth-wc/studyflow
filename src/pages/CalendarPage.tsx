@@ -86,31 +86,33 @@ export default function CalendarPage() {
               </div>
               {sessions.map(({ session, project }) => (
                 <div key={session.id} className="calendar-entry">
-                  <span>
-                    <span
-                      className="project-color-dot"
-                      style={{ background: project.color, display: "inline-block", marginRight: 6 }}
-                    />
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <span className="project-chip" style={{ background: project.color }}>
+                      {project.name.charAt(0).toUpperCase()}
+                    </span>
                     {project.name}
                     {session.location ? ` · ${session.location}` : ""}
                   </span>
                   <span className="calendar-entry-time">{formatTime12h(session.startTime)}</span>
                 </div>
               ))}
-              {tasksDue.map((task) => (
-                <div key={task.id} className="calendar-entry">
-                  <span>
-                    {task.projectId && projectById[task.projectId] && (
+              {tasksDue.map((task) => {
+                const project = task.projectId ? projectById[task.projectId] : null;
+                return (
+                  <div key={task.id} className="calendar-entry">
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                       <span
-                        className="project-color-dot"
-                        style={{ background: projectById[task.projectId].color, display: "inline-block", marginRight: 6 }}
-                      />
-                    )}
-                    {task.title}
-                  </span>
-                  <span className="calendar-entry-time">Due</span>
-                </div>
-              ))}
+                        className="project-chip"
+                        style={{ background: project?.color ?? "var(--text-muted)" }}
+                      >
+                        {(project?.name ?? task.title).charAt(0).toUpperCase()}
+                      </span>
+                      {task.title}
+                    </span>
+                    <span className="calendar-entry-time">Due</span>
+                  </div>
+                );
+              })}
             </div>
           );
         })}

@@ -108,7 +108,12 @@ export default function TimerPage() {
       <h1>Timer</h1>
 
       <div className="card">
-        <div className={"timer-display" + (status === "done" ? " timer-display-done" : "")}>
+        <div
+          className={
+            "timer-display" +
+            (status === "done" ? " timer-display-done" : status === "running" ? " timer-display-running" : "")
+          }
+        >
           {status === "done" ? "Done!" : formatTime(remainingSeconds)}
         </div>
 
@@ -181,10 +186,12 @@ export default function TimerPage() {
 
       <div className="stat-row">
         <div className="card stat-tile">
+          <span className="stat-dot" style={{ background: "var(--accent)" }} />
           <div className="stat-value">{todayMinutes}m</div>
           <div className="stat-label">Studied today</div>
         </div>
         <div className="card stat-tile">
+          <span className="stat-dot" style={{ background: "var(--accent-2)" }} />
           <div className="stat-value">{todaySessions.length}</div>
           <div className="stat-label">Sessions today</div>
         </div>
@@ -193,18 +200,29 @@ export default function TimerPage() {
       {recentSessions.length > 0 && (
         <div className="card">
           <h2>Recent sessions</h2>
-          {recentSessions.map((s) => (
-            <div key={s.id} className="session-item">
-              <span>{s.projectId ? projectById[s.projectId]?.name ?? "Project" : "No project"}</span>
-              <span>{s.durationMinutes}m</span>
-              <span>
-                {new Date(s.startedAt).toLocaleDateString(undefined, {
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-          ))}
+          {recentSessions.map((s) => {
+            const project = s.projectId ? projectById[s.projectId] : null;
+            return (
+              <div key={s.id} className="session-item">
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                  <span
+                    className="project-chip"
+                    style={{ background: project?.color ?? "var(--text-muted)" }}
+                  >
+                    {(project?.name ?? "?").charAt(0).toUpperCase()}
+                  </span>
+                  {project?.name ?? "No project"}
+                </span>
+                <span>{s.durationMinutes}m</span>
+                <span>
+                  {new Date(s.startedAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
